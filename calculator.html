@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator</title>
+<style>
+  body { font-family: Segoe UI, Arial, sans-serif; background: #f3f4f6; display: flex; justify-content: center; padding-top: 60px; }
+  .card { background: #fff; padding: 24px 28px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.12); width: 320px; }
+  h1 { font-size: 20px; margin: 0 0 16px; }
+  input, select, button { width: 100%; box-sizing: border-box; padding: 10px; margin-bottom: 12px; font-size: 16px; }
+  button { background: #0f6cbd; color: #fff; border: 0; border-radius: 6px; cursor: pointer; }
+  #result { font-size: 18px; font-weight: 600; min-height: 24px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Simple Calculator</h1>
+  <input id="a" type="text" placeholder="First number">
+  <input id="b" type="text" placeholder="Second number">
+  <select id="op">
+    <option value="add">Add (+)</option>
+    <option value="sub">Subtract (-)</option>
+    <option value="mul">Multiply (x)</option>
+    <option value="div">Divide (/)</option>
+  </select>
+  <button onclick="calculate()">Calculate</button>
+  <div id="result"></div>
+</div>
+<script>
+function calculate() {
+  var a = document.getElementById('a').value;
+  var b = document.getElementById('b').value;
+  var op = document.getElementById('op').value;
+  var r;
+  if (op === 'add') r = a + b;
+  else if (op === 'sub') r = a + b;
+  else if (op === 'mul') r = a * b;
+  else if (op === 'div') r = a / b;
+  document.getElementById('result').textContent = 'Result: ' + r;
+}
+</script>
+</body>
+</html>
