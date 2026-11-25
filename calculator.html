@@ -1,44 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculator</title>
-<style>
-  body { font-family: Segoe UI, Arial, sans-serif; background: #f3f4f6; display: flex; justify-content: center; padding-top: 60px; }
-  .card { background: #fff; padding: 24px 28px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.12); width: 320px; }
-  h1 { font-size: 20px; margin: 0 0 16px; }
-  input, select, button { width: 100%; box-sizing: border-box; padding: 10px; margin-bottom: 12px; font-size: 16px; }
-  button { background: #0f6cbd; color: #fff; border: 0; border-radius: 6px; cursor: pointer; }
-  #result { font-size: 18px; font-weight: 600; min-height: 24px; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6f4ee">
+  <meta name="description" content="A considered space for scientific calculations. Explore expressions, powers, trigonometry, and more.">
+  <title>Calculator — Room to think</title>
+  <link rel="stylesheet" href="calculator.css">
+  <script src="calculator.js" defer></script>
 </head>
 <body>
-<div class="card">
-  <h1>Simple Calculator</h1>
-  <input id="a" type="text" placeholder="First number">
-  <input id="b" type="text" placeholder="Second number">
-  <select id="op">
-    <option value="add">Add (+)</option>
-    <option value="sub">Subtract (-)</option>
-    <option value="mul">Multiply (x)</option>
-    <option value="div">Divide (/)</option>
-  </select>
-  <button onclick="calculate()">Calculate</button>
-  <div id="result"></div>
-</div>
-<script>
-function calculate() {
-  var a = document.getElementById('a').value;
-  var b = document.getElementById('b').value;
-  var op = document.getElementById('op').value;
-  var r;
-  if (op === 'add') r = a + b;
-  else if (op === 'sub') r = a + b;
-  else if (op === 'mul') r = a * b;
-  else if (op === 'div') r = a / b;
-  document.getElementById('result').textContent = 'Result: ' + r;
-}
-</script>
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">c<span>·</span></span>
+      <span>Calculator<span class="brand-edition">SCIENTIFIC</span></span>
+    </div>
+    <span class="header-note">A little space for big ideas.</span>
+  </header>
+
+  <main class="workspace">
+    <section class="intro" aria-labelledby="intro-heading">
+      <p class="eyebrow">LESS NOISE. MORE POSSIBILITY.</p>
+      <h1 id="intro-heading">Room to<br>think <span>further.</span></h1>
+      <p class="intro-copy">From everyday numbers to your next discovery. A thoughtful scientific calculator that keeps the focus on your thinking.</p>
+      <ul class="feature-list" aria-label="Scientific capabilities">
+        <li><span class="feature-symbol" aria-hidden="true">ƒ</span><span>Go beyond the basics<small>Trigonometry, logarithms &amp; powers</small></span></li>
+        <li><span class="feature-symbol" aria-hidden="true">( )</span><span>Follow your own formula<small>Type an expression or use the keypad</small></span></li>
+        <li><span class="feature-symbol" aria-hidden="true">↵</span><span>Stay in your flow<small>Press Enter to calculate</small></span></li>
+      </ul>
+      <div class="intro-footnote"><span aria-hidden="true">✦</span> Complex ideas. A clearer workspace.</div>
+    </section>
+
+    <section class="calculator-panel" aria-labelledby="calculator-heading">
+      <header class="panel-header">
+        <div>
+          <p class="panel-eyebrow">THE THINKING TOOL</p>
+          <h2 id="calculator-heading">Scientific calculator</h2>
+        </div>
+        <span class="instrument-mark" aria-hidden="true">ƒ<span>x</span></span>
+      </header>
+
+      <div class="display">
+        <p class="display-label">RESULT</p>
+        <p class="expression" id="expression">Your next calculation starts here</p>
+        <div class="result" id="result" role="status" aria-live="polite" aria-atomic="true" data-state="idle">Ready when you are</div>
+      </div>
+
+      <form id="calculator" data-state="idle" novalidate>
+        <div class="expression-heading">
+          <label for="expression-input">Expression</label>
+          <div class="angle-control">
+            <label for="angle-mode">Angle unit</label>
+            <select id="angle-mode" name="angle-mode" form="calculator">
+              <option value="deg" selected>DEG</option>
+              <option value="rad">RAD</option>
+            </select>
+          </div>
+        </div>
+        <input id="expression-input" name="expression" type="text" maxlength="1024" aria-describedby="syntax-hint" placeholder="sin(30) + sqrt(16)" autocomplete="off" autocapitalize="off" spellcheck="false">
+        <p id="syntax-hint">Use * to multiply and ^ for powers. Close parentheses.<br>Try sin(30)+sqrt(16). No implicit multiplication.</p>
+
+        <div class="keypad scientific-keys" role="group" aria-label="Scientific functions and constants">
+          <button type="button" data-insert="sin(" aria-label="Sine">sin</button>
+          <button type="button" data-insert="cos(" aria-label="Cosine">cos</button>
+          <button type="button" data-insert="tan(" aria-label="Tangent">tan</button>
+          <button type="button" data-insert="(" aria-label="Open parenthesis">(</button>
+          <button type="button" data-insert=")" aria-label="Close parenthesis">)</button>
+          <button type="button" data-insert="asin(" aria-label="Inverse sine">sin<sup>−1</sup></button>
+          <button type="button" data-insert="acos(" aria-label="Inverse cosine">cos<sup>−1</sup></button>
+          <button type="button" data-insert="atan(" aria-label="Inverse tangent">tan<sup>−1</sup></button>
+          <button type="button" data-insert="pi" aria-label="Pi">π</button>
+          <button type="button" data-insert="e" aria-label="Euler's number">e</button>
+          <button type="button" data-insert="sqrt(" aria-label="Square root">√</button>
+          <button type="button" data-insert="ln(" aria-label="Natural logarithm">ln</button>
+          <button type="button" data-insert="log(" aria-label="Base ten logarithm">log</button>
+          <button type="button" data-insert="abs(" aria-label="Absolute value">abs</button>
+          <button type="button" data-insert="exp(" aria-label="Exponential function">exp</button>
+        </div>
+
+        <div class="keypad number-keys" role="group" aria-label="Numbers and operations">
+          <button class="key-utility key-clear" id="clear" type="button">Clear</button>
+          <button class="key-utility" id="delete" type="button" aria-label="Delete last character">⌫</button>
+          <button class="key-operator" type="button" data-insert="^" aria-label="Power">x<sup>y</sup></button>
+          <button class="key-operator" type="button" data-insert="!" aria-label="Factorial">n!</button>
+          <button class="key-operator" type="button" data-insert="^2" aria-label="Square">x²</button>
+          <button type="button" data-insert="7">7</button>
+          <button type="button" data-insert="8">8</button>
+          <button type="button" data-insert="9">9</button>
+          <button class="key-operator" type="button" data-insert="/" aria-label="Divide">÷</button>
+          <button class="key-operator" type="button" data-insert="*" aria-label="Multiply">×</button>
+          <button type="button" data-insert="4">4</button>
+          <button type="button" data-insert="5">5</button>
+          <button type="button" data-insert="6">6</button>
+          <button class="key-operator" type="button" data-insert="-" aria-label="Subtract">−</button>
+          <button class="key-operator" type="button" data-insert="+" aria-label="Add">+</button>
+          <button type="button" data-insert="1">1</button>
+          <button type="button" data-insert="2">2</button>
+          <button type="button" data-insert="3">3</button>
+          <button type="button" data-insert="0">0</button>
+          <button type="button" data-insert="." aria-label="Decimal point">.</button>
+        </div>
+        <button class="calculate-button" type="submit" aria-label="Calculate"><span>Calculate</span><span aria-hidden="true">=</span></button>
+        <p class="keyboard-hint">Your keyboard is welcome here. <kbd>Enter</kbd> to calculate.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>Made for a clearer state of mind.</span>
+    <span>SCIENTIFIC / EVERYDAY</span>
+  </footer>
 </body>
 </html>
