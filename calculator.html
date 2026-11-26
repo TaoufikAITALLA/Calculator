@@ -8,6 +8,7 @@
   body { font-family: Segoe UI, Arial, sans-serif; background: #f3f4f6; display: flex; justify-content: center; padding-top: 60px; }
   .card { background: #fff; padding: 24px 28px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.12); width: 320px; }
   h1 { font-size: 20px; margin: 0 0 16px; }
+  label { display: block; margin-bottom: 4px; }
   input, select, button { width: 100%; box-sizing: border-box; padding: 10px; margin-bottom: 12px; font-size: 16px; }
   button { background: #0f6cbd; color: #fff; border: 0; border-radius: 6px; cursor: pointer; }
   #result { font-size: 18px; font-weight: 600; min-height: 24px; }
@@ -16,8 +17,10 @@
 <body>
 <div class="card">
   <h1>Simple Calculator</h1>
-  <input id="a" type="text" placeholder="First number">
-  <input id="b" type="text" placeholder="Second number">
+  <label for="a">First number</label>
+  <input id="a" type="number" step="any" placeholder="First number">
+  <label for="b">Second number</label>
+  <input id="b" type="number" step="any" placeholder="Second number">
   <select id="op">
     <option value="add">Add (+)</option>
     <option value="sub">Subtract (-)</option>
@@ -29,15 +32,36 @@
 </div>
 <script>
 function calculate() {
-  var a = document.getElementById('a').value;
-  var b = document.getElementById('b').value;
+  var aInput = document.getElementById('a').value;
+  var bInput = document.getElementById('b').value;
   var op = document.getElementById('op').value;
+  var result = document.getElementById('result');
+  if (aInput.trim() === '' || bInput.trim() === '') {
+    result.textContent = 'Please enter both numbers.';
+    return;
+  }
+  var a = Number(aInput);
+  var b = Number(bInput);
+  if (!Number.isFinite(a) || !Number.isFinite(b)) {
+    result.textContent = 'Please enter valid numbers.';
+    return;
+  }
   var r;
   if (op === 'add') r = a + b;
-  else if (op === 'sub') r = a + b;
+  else if (op === 'sub') r = a - b;
   else if (op === 'mul') r = a * b;
-  else if (op === 'div') r = a / b;
-  document.getElementById('result').textContent = 'Result: ' + r;
+  else if (op === 'div') {
+    if (b === 0) {
+      result.textContent = 'Error: Cannot divide by zero.';
+      return;
+    }
+    r = a / b;
+  }
+  if (!Number.isFinite(r)) {
+    result.textContent = 'Error: Result is outside the supported numeric range.';
+    return;
+  }
+  result.textContent = 'Result: ' + r;
 }
 </script>
 </body>
